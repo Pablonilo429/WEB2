@@ -33,11 +33,13 @@ public class alunoservlet extends HttpServlet {
 
 		
 		String nome;
+		String matricula;
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		nome = request.getParameter("nome");
+		matricula = request.getParameter("matricula");
 		
-		if(request.getParameter("opcoes").equals("nome")){ 
+		if(request.getParameter("opcoes").equals("nome") &&  request.getParameter("nome") != null){ 	//Busca por nome do aluno
 			for(int i = 0; i < turma.size(); i++) {
 				if(nome.equals(turma.get(i).nome)) {
 					out.println("<h1> Aluno: </h1><br><br>" + "<a>Matricula: " + turma.get(i).getMatricula() + "</a><br>"
@@ -47,6 +49,25 @@ public class alunoservlet extends HttpServlet {
 			}
 							
 		}
+		
+		if(request.getParameter("opcoes").equals("matricula") && request.getParameter("matricula") != null){ 		//Busca por matricula
+			for(int i = 0; i < turma.size(); i++) {
+				if(matricula.equals(turma.get(i).matricula)) {
+					out.println("<h1> Aluno: </h1><br><br>" + "<a>Matricula: " + turma.get(i).getMatricula() + "</a><br>"
+					+"<a>Nome: " + turma.get(i).getNome() + "</a>");
+				}
+			}
+		}
+		
+		if(request.getParameter("opcoes").equals("todos")) {		//Buscar todos os alunos
+			for(int i = 0; i < turma.size(); i++) {
+				out.println("<h1> Aluno: </h1><br><br>" + "<a>Matricula: " + turma.get(i).getMatricula() + "</a><br>"
+						+"<a>Nome: " + turma.get(i).getNome() + "</a>");
+			}
+			
+		}
+		
+		
 		
 	}
 
